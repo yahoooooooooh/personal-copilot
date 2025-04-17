@@ -12,6 +12,7 @@ from prompts import PROMPT_NETWORKING, PROMPT_ARTIFACTS # 导入 PROMPT_ARTIFACT
 import web_search
 import logging
 import api_client  # 导入DeepSeek客户端
+import tempfile
 
 class ImageHandler:
     def __init__(self, controller, app, ui_elements):
@@ -89,8 +90,8 @@ class ImageHandler:
                     try:
                         response = requests.get(image_url, stream=True, timeout=10)
                         if response.status_code == 200:
-                            # 指定保存目录
-                            save_dir = r"D:\living\skill\living skills\painting_skill\AI_painting\grok"
+                            # 指定保存目录，使用环境变量或默认路径
+                            save_dir = os.getenv("IMAGE_SAVE_DIR", os.path.join(tempfile.gettempdir(), "grok_images"))
                             # 确保目录存在
                             os.makedirs(save_dir, exist_ok=True)
                             # 使用时间戳生成唯一文件名
@@ -99,7 +100,7 @@ class ImageHandler:
                             try:
                                 file_extension = os.path.splitext(image_url.split('?')[0])[-1] # 处理可能的URL参数
                                 if not file_extension or len(file_extension) > 5: # 简单检查扩展名有效性
-                                     file_extension = '.png'
+                                    file_extension = '.png'
                             except Exception:
                                 file_extension = '.png'
                                 

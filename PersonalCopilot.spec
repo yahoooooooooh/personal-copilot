@@ -4,7 +4,7 @@
 
 a = Analysis(
     ['main.py'],  # 入口文件
-    pathex=['d:\\living\\skill\\living skills\\coding skill\\llm_latest'],  # 项目路径，确保 PyInstaller 能找到所有模块
+    pathex=['.'],  # 项目路径，确保 PyInstaller 能找到所有模块
     binaries=[],  # 可选：指定需要包含的二进制文件
     datas=[
         ('yellow_theme.json', '.'),  # 主题文件
@@ -30,6 +30,7 @@ a = Analysis(
     excludes=[],  # 排除的模块（可选）
     noarchive=False,  # 是否禁用归档
     optimize=0,  # 优化级别，0 表示不优化
+    icon=['Dango.ico'],  # 图标文件，确保文件存在于项目目录中
 )
 pyz = PYZ(a.pure)  # 创建 PYZ 归档文件，包含纯 Python 代码
 
@@ -52,5 +53,4 @@ exe = EXE(
     target_arch=None,  # 目标架构（可选）
     codesign_identity=None,  # 代码签名身份（适用于 macOS）
     entitlements_file=None,  # 权限文件（适用于 macOS）
-    icon=['d:\\living\\skill\\living skills\\coding skill\\llm_latest\\Dango.ico'],  # 图标文件，确保文件存在于项目目录中
 )

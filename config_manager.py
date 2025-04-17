@@ -65,16 +65,13 @@ def load_environment_variables():
         if env_file_path.exists():
             logging.info("--- 正在加载环境变量: %s ---", env_file_path)
             load_dotenv(dotenv_path=env_file_path, override=True)
-            logging.info("--- [Debug] .env 加载后 GROK_API_KEY: ...%s", os.getenv('GROK_API_KEY')[-4:] if os.getenv('GROK_API_KEY') else 'Not Set')
-            logging.info("--- [Debug] .env 加载后 TAVILY_API_KEY: %s", 'Set' if os.getenv('TAVILY_API_KEY') else 'Not Set')
+            logging.info("--- [Debug] .env 加载后环境变量已加载 ---")
         else:
             logging.warning("--- 警告: 未找到环境变量文件 %s ---", env_file_path)
-            logging.info("--- [Debug] 未找到 .env 时 GROK_API_KEY: ...%s", os.getenv('GROK_API_KEY')[-4:] if os.getenv('GROK_API_KEY') else 'Not Set')
-            logging.info("--- [Debug] 未找到 .env 时 TAVILY_API_KEY: %s", 'Set' if os.getenv('TAVILY_API_KEY') else 'Not Set')
+            logging.info("--- [Debug] 未找到 .env 文件 ---")
     except Exception as e:
         logging.error("!!! 加载 .env 文件时发生错误: %s !!!", e)
-        logging.info("--- [Debug] 加载 .env 出错时 GROK_API_KEY: ...%s", os.getenv('GROK_API_KEY')[-4:] if os.getenv('GROK_API_KEY') else 'Not Set')
-        logging.info("--- [Debug] 加载 .env 出错时 TAVILY_API_KEY: %s", 'Set' if os.getenv('TAVILY_API_KEY') else 'Not Set')
+        logging.info("--- [Debug] 加载 .env 出错 ---")
 
     # 检查缺失的API密钥
     if not os.getenv("DEEPSEEK_API_KEY"):
